@@ -19,12 +19,11 @@ while True:
 	r = requests.get("http://warren.ngrok.io/hucha")
 	print(r.json()["value"])
 
-	sense.show_message("Money in: " + r.json()["value"], text_colour=[0, 255, 0])
+	sense.show_message("Money in: " + str(r.json()["value"]), text_colour=[0, 255, 0])
 
 	if GPIO.event_detected(21):
-		
 		sense.load_image("smile.png")
-    	print('Button pressed')
+    		print('Button pressed')
 		time.sleep(1)
 		sense.load_image("fb.png")
 
