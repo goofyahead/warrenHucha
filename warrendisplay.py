@@ -26,16 +26,16 @@ while True:
 
 	sense.show_message("Investing: " + currentCompany, text_colour=[0, 255, 0])
 
-	if (r.json()["coeficient"] > 1)
+	if (r.json()["coeficient"] > 1):
 		sense.load_image("arrow_up.png")
-	else 
+	else:
 		sense.load_image("arrow_down.png")
 
 	if GPIO.event_detected(21):
-		requests.post("http://warre.ngrok.io/coin", data = {"key":"value"})
+		requests.post("http://warren.ngrok.io/coin", data = {"key":"value"})
 		
 		sense.load_image("smile.png")
-    	print('Button pressed')
+	    	print('Button pressed')
 		time.sleep(1)
 		sense.load_image(currentCompany + ".png")
 
