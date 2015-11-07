@@ -14,28 +14,26 @@ GPIO.add_event_detect(21, GPIO.RISING)  # add rising edge detection on a channel
 currentCompany = "none"
 
 while True:
-	time.sleep(0.5)
-
-	# check amount of coins and value
-	r = requests.get("http://warren.ngrok.io/hucha")
-	print(r.json()["value"])
+	time.sleep(0.1)
 
 	currentCompany = r.json()["company"]
 
-	sense.show_message("Coins: " + str(r.json()["value"]), text_colour=[0, 255, 0])
-
-	sense.show_message("Investing: " + currentCompany, text_colour=[0, 255, 0])
-
-	if (r.json()["coeficient"] > 1):
-		sense.load_image("arrow_up.png")
-	else:
-		sense.load_image("arrow_down.png")
-
 	if GPIO.event_detected(21):
-		requests.post("http://warren.ngrok.io/coin", data = {"key":"value"})
+		update = requests.post("http://warren.ngrok.io/coin", data = {"key":"value"})
 		
 		sense.load_image("smile.png")
 	    	print('Button pressed')
-		time.sleep(1)
-		sense.load_image(currentCompany + ".png")
+
+	    sense.load_image(currentCompany + ".png")
+	    time.sleep(0.5)
+
+	    if (response.json()["coeficient"] > 1):
+			sense.load_image("arrow_up.png")
+		else:
+			sense.load_image("arrow_down.png")
+
+		sense.show_message("Coins: " + str(response.json()["value"] * response.json()["coeficient"]), text_colour=[0, 255, 0])
+
+		time.sleep(0.5)
+		
 
